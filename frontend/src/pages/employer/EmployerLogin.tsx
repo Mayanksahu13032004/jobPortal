@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Building2, Mail, Lock, ArrowLeft, Loader2 } from "lucide-react";
@@ -6,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
-import { API_BASE_URL } from "@/config"; 
+import { API_BASE_URL } from "@/config";
 
 const EmployerLogin = () => {
   const navigate = useNavigate();
@@ -87,9 +86,13 @@ const EmployerLogin = () => {
               <div className="p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-employer-light">
                 <Building2 className="w-5 h-5 sm:w-6 sm:h-6 text-employer" />
               </div>
-              <span className="text-base sm:text-lg font-semibold text-foreground">Employer Portal</span>
+              <span className="text-base sm:text-lg font-semibold text-foreground">
+                Employer Portal
+              </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1 sm:mb-2">Welcome back</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1 sm:mb-2">
+              Welcome back
+            </h1>
             <p className="text-sm sm:text-base text-muted-foreground">
               Sign in to your employer account to manage job postings.
             </p>
@@ -98,7 +101,9 @@ const EmployerLogin = () => {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
             <div className="space-y-1.5 sm:space-y-2">
-              <Label htmlFor="email" className="text-sm sm:text-base">Company Email</Label>
+              <Label htmlFor="email" className="text-sm sm:text-base">
+                Company Email
+              </Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
                 <Input
@@ -115,7 +120,9 @@ const EmployerLogin = () => {
             </div>
 
             <div className="space-y-1.5 sm:space-y-2">
-              <Label htmlFor="password" className="text-sm sm:text-base">Password</Label>
+              <Label htmlFor="password" className="text-sm sm:text-base">
+                Password
+              </Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
                 <Input
@@ -166,9 +173,12 @@ const EmployerLogin = () => {
       <div className="lg:flex-1 gradient-employer flex items-center justify-center p-8 sm:p-10 lg:p-12 min-h-[200px] sm:min-h-[250px] lg:min-h-0 order-1 lg:order-2">
         <div className="max-w-md text-center text-employer-foreground">
           <Building2 className="w-12 h-12 sm:w-16 md:w-20 sm:h-16 md:h-20 mx-auto mb-4 sm:mb-6 lg:mb-8 opacity-90" />
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 sm:mb-3 lg:mb-4">Build Your Dream Team</h2>
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 sm:mb-3 lg:mb-4">
+            Build Your Dream Team
+          </h2>
           <p className="text-sm sm:text-base lg:text-lg opacity-90 hidden sm:block">
-            Access thousands of qualified candidates and streamline your hiring process with our powerful tools.
+            Access thousands of qualified candidates and streamline your hiring
+            process with our powerful tools.
           </p>
         </div>
       </div>

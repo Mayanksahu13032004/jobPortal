@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import multer from 'multer';
 import { auth } from '../middleware/auth.middleware';
 import { authorizeRoles } from '../middleware/role.middleware';
 import {
@@ -13,7 +14,17 @@ router.post(
   '/',
   auth,
   authorizeRoles('jobseeker'),
-  uploadResume.single('resume'),
+  (req, res, next) => {
+    uploadResume.single('resume')(req, res, (err) => {
+      if (err instanceof multer.MulterError) {
+        return res.status(400).json({ message: err.message });
+      }
+      if (err) {
+        return res.status(400).json({ message: err.message });
+      }
+      next();
+    });
+  },
   createOrUpdateJobseekerProfile
 );
 
