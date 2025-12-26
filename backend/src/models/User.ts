@@ -39,7 +39,7 @@ const UserSchema: Schema<IUser> = new Schema(
   { timestamps: true }
 );
 
-// ✅ Correct async pre hook (no "next")
+//  Correct async pre hook (no "next")
 UserSchema.pre<IUser>('save', async function () {
   if (!this.isModified('password')) return;
 

@@ -5,7 +5,7 @@ export interface IJobseekerProfile extends Document {
   phone: string;
   location: string;
   skills: string[];
-  experience: number;
+  experience: String;//Number
   resumeUrl: string;
 }
 
@@ -30,13 +30,17 @@ const JobseekerProfileSchema = new Schema<IJobseekerProfile>(
       default: []
     },
     experience: {
-      type: Number,
-      default: 0
+      type: String,//Number
+      default: ""//0
     },
     resumeUrl: {
       type: String,
-      required: true
+      default: ""
     }
+    // resumeUrl: {
+    //   type: String,
+    //   required: true
+    // }
   },
   { timestamps: true }
 );

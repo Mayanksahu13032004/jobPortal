@@ -119,6 +119,11 @@ const EmployerHome = () => {
               variant="ghost"
               size="sm"
               onClick={() => navigate("/employer/profile")}
+              className="
+    hover:bg-employer
+    hover:text-employer-foreground
+    hover:shadow-md
+  "
             >
               <User className="w-4 h-4 mr-2" />
               Profile

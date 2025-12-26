@@ -22,7 +22,9 @@ export const createOrUpdateJobseekerProfile = async (
         location,
         skills: skills ? skills.split(',') : [],
         experience,
-        resumeUrl: resumePath
+        // resumeUrl: resumePath
+        ...(resumePath && { resumeUrl: resumePath })
+
       },
       { upsert: true, new: true }
     );

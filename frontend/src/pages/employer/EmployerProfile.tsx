@@ -41,7 +41,7 @@ const EmployerProfile = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        // 1️Get logged-in user
+        // Get logged-in user
         const meRes = await apiFetch("/auth/me");
 
         if (meRes.user.role.toLowerCase() !== "employer") {
@@ -56,7 +56,7 @@ const EmployerProfile = () => {
 
         setUser(meRes.user);
 
-        // 2Get employer profile
+        // Get employer profile
         const profileRes = await apiFetch("/employer/profile/me");
         setProfile(profileRes);
       } catch (error) {

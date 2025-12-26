@@ -13,6 +13,8 @@ import EmployerProfileForm from "./pages/employer/EmployerProfileForm";
 import JobSeekerLogin from "./pages/jobseeker/JobSeekerLogin";
 import JobSeekerSignup from "./pages/jobseeker/JobSeekerSignup";
 import JobSeekerHome from "./pages/jobseeker/JobSeekerHome";
+import JobSeekerProfile from "./pages/jobseeker/JobSeekerProfile";
+
 
 const queryClient = new QueryClient();
 
@@ -34,6 +36,7 @@ const App = () => (
           <Route path="/jobseeker/login" element={<JobSeekerLogin />} />
           <Route path="/jobseeker/signup" element={<JobSeekerSignup />} />
           <Route path="/jobseeker/home" element={<JobSeekerHome />} />
+          <Route path="/jobseeker/profile" element={<JobSeekerProfile />} />
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />
         </Routes>

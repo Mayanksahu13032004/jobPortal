@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { UserSearch, LogOut, Search, Bookmark, Send, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
+import { User } from "lucide-react";
+
 
 interface User {
   name: string;
@@ -54,24 +56,45 @@ const JobSeekerHome = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border bg-card sticky top-0 z-10">
-        <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <div className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl gradient-jobseeker">
-              <UserSearch className="w-4 h-4 sm:w-5 sm:h-5 text-jobseeker-foreground" />
-            </div>
-            <span className="text-base sm:text-lg font-bold text-foreground">JobConnect</span>
-          </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleLogout}
-            className="text-muted-foreground hover:text-foreground text-xs sm:text-sm"
-          >
-            <LogOut className="w-4 h-4 sm:mr-2" />
-            <span className="hidden sm:inline">Logout</span>
-          </Button>
-        </div>
-      </header>
+  <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center">
+    
+    {/* Left: Logo */}
+    <div className="flex items-center gap-2 sm:gap-3">
+      <div className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl gradient-jobseeker">
+        <UserSearch className="w-4 h-4 sm:w-5 sm:h-5 text-jobseeker-foreground" />
+      </div>
+      <span className="text-base sm:text-lg font-bold text-foreground">
+        JobConnect
+      </span>
+    </div>
+
+    {/* Right: Buttons */}
+    <div className="flex items-center gap-2 ml-auto">
+      <Button
+        variant="jobseeker-outline"
+        size="sm"
+        onClick={() => navigate("/jobseeker/profile")}
+        className="text-xs sm:text-sm"
+      >
+        <User className="w-4 h-4 sm:mr-2" />
+        <span className="hidden sm:inline">My Profile</span>
+        <span className="sm:hidden">Profile</span>
+      </Button>
+
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={handleLogout}
+        className="text-muted-foreground hover:text-foreground text-xs sm:text-sm"
+      >
+        <LogOut className="w-4 h-4 sm:mr-2" />
+        <span className="hidden sm:inline">Logout</span>
+      </Button>
+    </div>
+
+  </div>
+</header>
+
 
       {/* Main Content */}
       <main className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
@@ -128,6 +151,11 @@ const JobSeekerHome = () => {
               <Send className="w-4 h-4 sm:mr-2" />
               <span className="hidden sm:inline">My Applications</span>
               <span className="sm:hidden">Applications</span>
+            </Button>
+            <Button variant="jobseeker-outline" size="sm" onClick={() => navigate("/jobseeker/profile")} className="text-xs sm:text-sm">
+              <User className="w-4 h-4 sm:mr-2" />
+              <span className="hidden sm:inline">My Profile</span>
+              <span className="sm:hidden">Profile</span>
             </Button>
           </div>
         </div>

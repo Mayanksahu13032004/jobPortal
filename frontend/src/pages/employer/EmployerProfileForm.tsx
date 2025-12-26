@@ -46,11 +46,11 @@ const EmployerProfileForm = () => {
 
   const [errors, setErrors] = useState<FormErrors>({});
 
-  // Load user + existing profile (LOGIC FIXED)
+  // Load user + existing profile 
   useEffect(() => {
     const loadData = async () => {
       try {
-        // 1️⃣ AUTH CHECK (ONLY THIS CAN REDIRECT)
+        // 1AUTH CHECK 
         const meRes = await apiFetch("/auth/me");
 
         if (!meRes.user || meRes.user.role.toLowerCase() !== "employer") {

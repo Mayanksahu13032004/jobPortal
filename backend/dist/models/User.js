@@ -62,7 +62,7 @@ const UserSchema = new mongoose_1.Schema({
         required: true
     }
 }, { timestamps: true });
-// ✅ Correct async pre hook (no "next")
+//  Correct async pre hook (no "next")
 UserSchema.pre('save', async function () {
     if (!this.isModified('password'))
         return;
