@@ -33,19 +33,19 @@ const EmployerHome = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Load user from backend
+  // Load user from backend (UNCHANGED backend integration)
   useEffect(() => {
     const loadUser = async () => {
       try {
         const res = await apiFetch("/auth/me");
 
-        if (res.user.role.toLowerCase() !== "employer") {
+        if (!res?.user || res.user.role.toLowerCase() !== "employer") {
           navigate("/employer/login");
           return;
         }
 
         setUser(res.user);
-      } catch (error) {
+      } catch {
         navigate("/employer/login");
       } finally {
         setLoading(false);
@@ -55,12 +55,12 @@ const EmployerHome = () => {
     loadUser();
   }, [navigate]);
 
-  // Logout
+  // Logout (backend + safe cleanup)
   const handleLogout = async () => {
     try {
       await apiFetch("/auth/logout", { method: "POST" });
     } catch {
-      // even if logout API fails, continue
+      // proceed even if API fails
     }
 
     toast({
@@ -71,8 +71,7 @@ const EmployerHome = () => {
     navigate("/");
   };
 
-  if (loading) return null;
-  if (!user) return null;
+  if (loading || !user) return null;
 
   const stats = [
     {
@@ -120,10 +119,10 @@ const EmployerHome = () => {
               size="sm"
               onClick={() => navigate("/employer/profile")}
               className="
-    hover:bg-employer
-    hover:text-employer-foreground
-    hover:shadow-md
-  "
+                hover:bg-employer
+                hover:text-employer-foreground
+                hover:shadow-md
+              "
             >
               <User className="w-4 h-4 mr-2" />
               Profile
@@ -188,15 +187,23 @@ const EmployerHome = () => {
           ))}
         </div>
 
-        {/* Quick Actions */}
+        {/* Quick Actions (logic added, UI untouched) */}
         <div className="p-6 rounded-xl bg-card border animate-fade-in">
           <h2 className="text-lg font-semibold mb-4">Quick Actions</h2>
           <div className="flex flex-wrap gap-3">
-            <Button variant="employer" size="sm">
+            <Button
+              variant="employer"
+              size="sm"
+              onClick={() => navigate("/employer/jobs/new")}
+            >
               <Briefcase className="w-4 h-4 mr-2" />
               Post Job
             </Button>
-            <Button variant="employer-outline" size="sm">
+            <Button
+              variant="employer-outline"
+              size="sm"
+              onClick={() => navigate("/employer/jobs")}
+            >
               <Users className="w-4 h-4 mr-2" />
               Candidates
             </Button>
