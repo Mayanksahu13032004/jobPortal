@@ -3,8 +3,10 @@ import { auth } from '../middleware/auth.middleware';
 import { authorizeRoles } from '../middleware/role.middleware';
 import {
   applyForJob,
+
   getMyApplications,
-  getApplicantsForJob
+  getApplicantsForJob,
+  updateApplicationStatus
 } from '../controllers/jobApplication.controller';
 
 const router = Router();
@@ -31,6 +33,14 @@ router.get(
   auth,
   authorizeRoles('employer'),
   getApplicantsForJob
+);
+
+// In jobApplication.routes.ts
+router.patch(
+  '/:applicationId/status',
+  auth,
+  authorizeRoles('employer'),
+  updateApplicationStatus
 );
 
 export default router;

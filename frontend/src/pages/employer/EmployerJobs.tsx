@@ -8,8 +8,8 @@ import {
   ArrowLeft,
   Menu,
   User,
+  FileText,
 } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -18,7 +18,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import { toast } from "@/hooks/use-toast";
 import { useJobs } from "@/hooks/useJobs";
 import { Job } from "@/types/job";
@@ -34,7 +33,6 @@ interface UserData {
 
 const EmployerJobs = () => {
   const navigate = useNavigate();
-
   const [user, setUser] = useState<UserData | null>(null);
   const [jobToDelete, setJobToDelete] = useState<Job | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -43,14 +41,12 @@ const EmployerJobs = () => {
 
   useEffect(() => {
     const storedUser = sessionStorage.getItem("user");
-
     if (!storedUser) {
       navigate("/employer/login");
       return;
     }
 
     const userData: UserData = JSON.parse(storedUser);
-
     if (userData.role !== "employer") {
       navigate("/jobseeker/home");
       toast({
@@ -75,6 +71,10 @@ const EmployerJobs = () => {
 
   const handleEdit = (job: Job) => {
     navigate(`/employer/jobs/${job.id}/edit`);
+  };
+
+  const handleViewApplications = (job: Job) => {
+    navigate(`/employer/jobs/${job.id}/applications`);
   };
 
   const handleDeleteClick = (job: Job) => {
@@ -125,12 +125,10 @@ const EmployerJobs = () => {
               size="sm"
               onClick={() => navigate("/employer/profile")}
             >
-              <User className="w-4 h-4 mr-2" />
-              Profile
+              <User className="w-4 h-4 mr-2" /> Profile
             </Button>
             <Button variant="ghost" size="sm" onClick={handleLogout}>
-              <LogOut className="w-4 h-4 mr-2" />
-              Logout
+              <LogOut className="w-4 h-4 mr-2" /> Logout
             </Button>
           </div>
 
@@ -177,8 +175,7 @@ const EmployerJobs = () => {
             variant="employer"
             onClick={() => navigate("/employer/jobs/new")}
           >
-            <Plus className="w-4 h-4 mr-2" />
-            Post New Job
+            <Plus className="w-4 h-4 mr-2" /> Post New Job
           </Button>
         </div>
 
@@ -198,8 +195,7 @@ const EmployerJobs = () => {
               variant="employer"
               onClick={() => navigate("/employer/jobs/new")}
             >
-              <Plus className="w-4 h-4 mr-2" />
-              Post Job
+              <Plus className="w-4 h-4 mr-2" /> Post Job
             </Button>
           </div>
         ) : (
@@ -210,6 +206,7 @@ const EmployerJobs = () => {
                 job={job}
                 onEdit={handleEdit}
                 onDelete={handleDeleteClick}
+                onViewApplications={() => handleViewApplications(job)}
               />
             ))}
           </div>

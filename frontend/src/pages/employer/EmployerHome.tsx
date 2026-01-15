@@ -33,7 +33,7 @@ const EmployerHome = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Load user from backend (UNCHANGED backend integration)
+  // Load user from backend
   useEffect(() => {
     const loadUser = async () => {
       try {
@@ -199,17 +199,15 @@ const EmployerHome = () => {
               <Briefcase className="w-4 h-4 mr-2" />
               Post Job
             </Button>
-            <Button
-              variant="employer-outline"
-              size="sm"
+            <Button 
+              variant="employer-outline" 
+              size="sm" 
+              className="text-xs sm:text-sm"
               onClick={() => navigate("/employer/jobs")}
             >
-              <Users className="w-4 h-4 mr-2" />
-              Candidates
-            </Button>
-            <Button variant="secondary" size="sm">
-              <FileText className="w-4 h-4 mr-2" />
-              Applications
+              <FileText className="w-4 h-4 sm:mr-2" />
+              <span className="hidden sm:inline">Manage Jobs</span>
+              <span className="sm:hidden">Jobs</span>
             </Button>
           </div>
         </div>

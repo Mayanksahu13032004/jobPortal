@@ -55,7 +55,7 @@ const JobSeekerProfile = () => {
   //   setUser(userData);
   //   setPhone(userData.phone || "");
   // }, [navigate]);
-  
+
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     const storedUser = sessionStorage.getItem("user");

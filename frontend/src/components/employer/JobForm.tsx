@@ -27,13 +27,18 @@ const JobForm = ({ job, isLoading, onSubmit, onCancel }: JobFormProps) => {
   const [formData, setFormData] = useState<JobFormData>(initialFormData);
   const [errors, setErrors] = useState<JobFormErrors>({});
 
+  // Normalize job data for editing
   useEffect(() => {
     if (job) {
       setFormData({
         title: job.title,
         description: job.description,
-        qualifications: job.qualifications,
-        responsibilities: job.responsibilities,
+        qualifications: Array.isArray(job.qualifications)
+          ? job.qualifications.join("\n")
+          : job.qualifications,
+        responsibilities: Array.isArray(job.responsibilities)
+          ? job.responsibilities.join("\n")
+          : job.responsibilities,
         location: job.location,
         salaryMin: job.salaryMin.toString(),
         salaryMax: job.salaryMax.toString(),
@@ -62,13 +67,15 @@ const JobForm = ({ job, isLoading, onSubmit, onCancel }: JobFormProps) => {
     if (!formData.qualifications.trim()) {
       newErrors.qualifications = "Qualifications are required";
     } else if (formData.qualifications.length > 1000) {
-      newErrors.qualifications = "Qualifications must be less than 1000 characters";
+      newErrors.qualifications =
+        "Qualifications must be less than 1000 characters";
     }
 
     if (!formData.responsibilities.trim()) {
       newErrors.responsibilities = "Responsibilities are required";
     } else if (formData.responsibilities.length > 1000) {
-      newErrors.responsibilities = "Responsibilities must be less than 1000 characters";
+      newErrors.responsibilities =
+        "Responsibilities must be less than 1000 characters";
     }
 
     if (!formData.location.trim()) {
@@ -101,7 +108,17 @@ const JobForm = ({ job, isLoading, onSubmit, onCancel }: JobFormProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      onSubmit(formData);
+      onSubmit({
+        ...formData,
+        qualifications: formData.qualifications
+          .split("\n")
+          .map((q) => q.trim())
+          .filter(Boolean),
+        responsibilities: formData.responsibilities
+          .split("\n")
+          .map((r) => r.trim())
+          .filter(Boolean),
+      });
     }
   };
 
@@ -109,9 +126,9 @@ const JobForm = ({ job, isLoading, onSubmit, onCancel }: JobFormProps) => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name as keyof JobFormErrors]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }));
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
   };
 
@@ -129,7 +146,9 @@ const JobForm = ({ job, isLoading, onSubmit, onCancel }: JobFormProps) => {
           placeholder="e.g., Senior Software Engineer"
           value={formData.title}
           onChange={handleChange}
-          className={`h-10 sm:h-11 text-sm sm:text-base ${errors.title ? "border-destructive" : ""}`}
+          className={`h-10 sm:h-11 text-sm sm:text-base ${
+            errors.title ? "border-destructive" : ""
+          }`}
         />
         {errors.title && (
           <p className="text-xs sm:text-sm text-destructive">{errors.title}</p>
@@ -148,10 +167,14 @@ const JobForm = ({ job, isLoading, onSubmit, onCancel }: JobFormProps) => {
           value={formData.description}
           onChange={handleChange}
           rows={4}
-          className={`text-sm sm:text-base resize-none ${errors.description ? "border-destructive" : ""}`}
+          className={`text-sm sm:text-base resize-none ${
+            errors.description ? "border-destructive" : ""
+          }`}
         />
         {errors.description && (
-          <p className="text-xs sm:text-sm text-destructive">{errors.description}</p>
+          <p className="text-xs sm:text-sm text-destructive">
+            {errors.description}
+          </p>
         )}
       </div>
 
@@ -163,14 +186,18 @@ const JobForm = ({ job, isLoading, onSubmit, onCancel }: JobFormProps) => {
         <Textarea
           id="qualifications"
           name="qualifications"
-          placeholder="List the required qualifications and skills..."
+          placeholder="List the required qualifications and skills, one per line..."
           value={formData.qualifications}
           onChange={handleChange}
           rows={3}
-          className={`text-sm sm:text-base resize-none ${errors.qualifications ? "border-destructive" : ""}`}
+          className={`text-sm sm:text-base resize-none ${
+            errors.qualifications ? "border-destructive" : ""
+          }`}
         />
         {errors.qualifications && (
-          <p className="text-xs sm:text-sm text-destructive">{errors.qualifications}</p>
+          <p className="text-xs sm:text-sm text-destructive">
+            {errors.qualifications}
+          </p>
         )}
       </div>
 
@@ -182,14 +209,18 @@ const JobForm = ({ job, isLoading, onSubmit, onCancel }: JobFormProps) => {
         <Textarea
           id="responsibilities"
           name="responsibilities"
-          placeholder="Outline the key responsibilities of this role..."
+          placeholder="Outline the key responsibilities of this role, one per line..."
           value={formData.responsibilities}
           onChange={handleChange}
           rows={3}
-          className={`text-sm sm:text-base resize-none ${errors.responsibilities ? "border-destructive" : ""}`}
+          className={`text-sm sm:text-base resize-none ${
+            errors.responsibilities ? "border-destructive" : ""
+          }`}
         />
         {errors.responsibilities && (
-          <p className="text-xs sm:text-sm text-destructive">{errors.responsibilities}</p>
+          <p className="text-xs sm:text-sm text-destructive">
+            {errors.responsibilities}
+          </p>
         )}
       </div>
 
@@ -205,10 +236,14 @@ const JobForm = ({ job, isLoading, onSubmit, onCancel }: JobFormProps) => {
           placeholder="e.g., New York, NY or Remote"
           value={formData.location}
           onChange={handleChange}
-          className={`h-10 sm:h-11 text-sm sm:text-base ${errors.location ? "border-destructive" : ""}`}
+          className={`h-10 sm:h-11 text-sm sm:text-base ${
+            errors.location ? "border-destructive" : ""
+          }`}
         />
         {errors.location && (
-          <p className="text-xs sm:text-sm text-destructive">{errors.location}</p>
+          <p className="text-xs sm:text-sm text-destructive">
+            {errors.location}
+          </p>
         )}
       </div>
 
@@ -226,10 +261,14 @@ const JobForm = ({ job, isLoading, onSubmit, onCancel }: JobFormProps) => {
             placeholder="50000"
             value={formData.salaryMin}
             onChange={handleChange}
-            className={`h-10 sm:h-11 text-sm sm:text-base ${errors.salaryMin ? "border-destructive" : ""}`}
+            className={`h-10 sm:h-11 text-sm sm:text-base ${
+              errors.salaryMin ? "border-destructive" : ""
+            }`}
           />
           {errors.salaryMin && (
-            <p className="text-xs sm:text-sm text-destructive">{errors.salaryMin}</p>
+            <p className="text-xs sm:text-sm text-destructive">
+              {errors.salaryMin}
+            </p>
           )}
         </div>
 
@@ -245,10 +284,14 @@ const JobForm = ({ job, isLoading, onSubmit, onCancel }: JobFormProps) => {
             placeholder="80000"
             value={formData.salaryMax}
             onChange={handleChange}
-            className={`h-10 sm:h-11 text-sm sm:text-base ${errors.salaryMax ? "border-destructive" : ""}`}
+            className={`h-10 sm:h-11 text-sm sm:text-base ${
+              errors.salaryMax ? "border-destructive" : ""
+            }`}
           />
           {errors.salaryMax && (
-            <p className="text-xs sm:text-sm text-destructive">{errors.salaryMax}</p>
+            <p className="text-xs sm:text-sm text-destructive">
+              {errors.salaryMax}
+            </p>
           )}
         </div>
       </div>

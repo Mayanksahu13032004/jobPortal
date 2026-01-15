@@ -1,4 +1,4 @@
-import { Response } from 'express';
+import { Request,Response } from 'express';
 import { AuthRequest } from '../middleware/auth.middleware';
 import JobApplication from '../models/JobApplication';
 import Job from '../models/Job';
@@ -29,7 +29,8 @@ export const applyForJob = async (
       message: 'Job applied successfully',
       application
     });
-  } catch (error: any) {
+  } 
+  catch (error: any) {
     if (error.code === 11000) {
       return res
         .status(400)
@@ -39,6 +40,7 @@ export const applyForJob = async (
     res.status(500).json({ message: 'Job application failed' });
   }
 };
+
 
 // JOBSEEKER: View my applications
 export const getMyApplications = async (
@@ -64,4 +66,28 @@ export const getApplicantsForJob = async (
     .populate('job', 'title location');
 
   res.json(applications);
+};
+
+
+
+export const updateApplicationStatus = async (req: Request, res: Response) => {
+  const { applicationId } = req.params;
+  const { status } = req.body;
+
+  if (!['applied', 'accepted', 'rejected'].includes(status.toLowerCase())) {
+    return res.status(400).json({ message: 'Invalid status' });
+  }
+
+  try {
+    const application = await JobApplication.findById(applicationId);
+    if (!application) return res.status(404).json({ message: 'Application not found' });
+
+    application.status = status.toLowerCase();
+    await application.save();
+
+    res.json({ message: 'Status updated successfully', application });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
 };

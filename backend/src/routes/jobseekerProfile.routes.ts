@@ -7,6 +7,7 @@ import {
   getMyJobseekerProfile
 } from '../controllers/jobseekerProfile.controller';
 import { uploadResume } from '../middleware/upload.middleware';
+import { getApplicantProfile } from '../controllers/jobseekerProfile.controller';
 
 const router = Router();
 
@@ -34,5 +35,8 @@ router.get(
   authorizeRoles('jobseeker'),
   getMyJobseekerProfile
 );
+
+// Employer fetches a jobseeker profile by userId
+router.get('/:userId', auth, authorizeRoles('employer'), getApplicantProfile);
 
 export default router;

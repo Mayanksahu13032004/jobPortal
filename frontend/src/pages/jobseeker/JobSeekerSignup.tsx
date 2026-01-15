@@ -87,9 +87,13 @@ const JobSeekerSignup = () => {
               <div className="p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-jobseeker-light">
                 <UserSearch className="w-5 h-5 sm:w-6 sm:h-6 text-jobseeker" />
               </div>
-              <span className="text-base sm:text-lg font-semibold text-foreground">Job Seeker Portal</span>
+              <span className="text-base sm:text-lg font-semibold text-foreground">
+                Job Seeker Portal
+              </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1 sm:mb-2">Create an account</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1 sm:mb-2">
+              Create an account
+            </h1>
             <p className="text-sm sm:text-base text-muted-foreground">
               Start your journey to finding your dream job.
             </p>
@@ -98,7 +102,9 @@ const JobSeekerSignup = () => {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
             <div className="space-y-1.5 sm:space-y-2">
-              <Label htmlFor="name" className="text-sm sm:text-base">Full Name</Label>
+              <Label htmlFor="name" className="text-sm sm:text-base">
+                Full Name
+              </Label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
                 <Input
@@ -115,7 +121,9 @@ const JobSeekerSignup = () => {
             </div>
 
             <div className="space-y-1.5 sm:space-y-2">
-              <Label htmlFor="email" className="text-sm sm:text-base">Email</Label>
+              <Label htmlFor="email" className="text-sm sm:text-base">
+                Email
+              </Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
                 <Input
@@ -132,7 +140,9 @@ const JobSeekerSignup = () => {
             </div>
 
             <div className="space-y-1.5 sm:space-y-2">
-              <Label htmlFor="password" className="text-sm sm:text-base">Password</Label>
+              <Label htmlFor="password" className="text-sm sm:text-base">
+                Password
+              </Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
                 <Input
@@ -183,9 +193,12 @@ const JobSeekerSignup = () => {
       <div className="lg:flex-1 gradient-jobseeker flex items-center justify-center p-8 sm:p-10 lg:p-12 min-h-[200px] sm:min-h-[250px] lg:min-h-0 order-1 lg:order-2">
         <div className="max-w-md text-center text-jobseeker-foreground">
           <UserSearch className="w-12 h-12 sm:w-16 md:w-20 sm:h-16 md:h-20 mx-auto mb-4 sm:mb-6 lg:mb-8 opacity-90" />
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 sm:mb-3 lg:mb-4">Land Your Dream Job</h2>
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 sm:mb-3 lg:mb-4">
+            Land Your Dream Job
+          </h2>
           <p className="text-sm sm:text-base lg:text-lg opacity-90 hidden sm:block">
-            Create your profile, upload your resume, and let top employers find you.
+            Create your profile, upload your resume, and let top employers find
+            you.
           </p>
         </div>
       </div>

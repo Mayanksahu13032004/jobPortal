@@ -45,3 +45,29 @@ export const getMyJobseekerProfile = async (
 
   res.json(profile);
 };
+
+
+
+export const getApplicantProfile = async (req: AuthRequest, res: Response) => {
+  const { userId } = req.params; // get userId from route
+
+  try {
+    const profile = await JobseekerProfile.findOne({ user: userId });
+
+    if (!profile) {
+      return res.status(404).json({ message: 'Applicant profile not found' });
+    }
+
+    // Only return the fields you want
+    res.json({
+      phone: profile.phone,
+      location: profile.location,
+      skills: profile.skills,
+      experience: profile.experience,
+      resumeUrl: profile.resumeUrl,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};

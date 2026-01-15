@@ -12,7 +12,7 @@ export const useJobs = () => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  
+
   const mapJob = (job: any): Job => ({
     id: job._id,
     title: job.title,
@@ -45,7 +45,7 @@ export const useJobs = () => {
     fetchJobs();
   }, [fetchJobs]);
 
-//Get job
+  //Get job
   const getJob = useCallback(async (jobId: string): Promise<Job | null> => {
     try {
       const data = await apiFetch(`/jobs/${jobId}`);
@@ -55,7 +55,7 @@ export const useJobs = () => {
       return null;
     }
   }, []);
-//Create Job
+  //Create Job
 
   const createJob = useCallback(async (formData: JobFormData): Promise<Job | null> => {
     setIsCreating(true);
@@ -80,29 +80,36 @@ export const useJobs = () => {
     }
   }, []);
 
- //Update job
-  const updateJob = useCallback(async (jobId: string, formData: JobFormData): Promise<Job | null> => {
-    setIsUpdating(true);
-    try {
-      const res = await apiFetch(`/jobs/${jobId}`, {
-        method: "PUT",
-        body: JSON.stringify({
-          ...formData,
-          qualifications: formData.qualifications,
-          responsibilities: formData.responsibilities,
-        }),
-      });
+  const updateJob = useCallback(
+    async (jobId: string, formData: JobFormData): Promise<Job | null> => {
+      setIsUpdating(true);
+      try {
+        const res = await apiFetch(`/jobs/${jobId}`, {
+          method: "PUT",
+          body: JSON.stringify({
+            ...formData,
+            qualifications: formData.qualifications,
+            responsibilities: formData.responsibilities,
+          }),
+        });
 
-      const updatedJob = mapJob(res.job);
-      setJobs((prev) => prev.map((job) => (job.id === jobId ? updatedJob : job)));
-      return updatedJob;
-    } catch (err) {
-      console.error("Update job failed:", err);
-      return null;
-    } finally {
-      setIsUpdating(false);
-    }
-  }, []);
+        const updatedJob = mapJob(res.job);
+
+        setJobs((prev) =>
+          prev.map((job) => (job._id === jobId ? updatedJob : job))
+        );
+
+        return updatedJob;
+      } catch (err) {
+        console.error("Update job failed:", err);
+        return null;
+      } finally {
+        setIsUpdating(false);
+      }
+    },
+    []
+  );
+
 
   //Delete job
   const deleteJob = useCallback(async (jobId: string): Promise<boolean> => {

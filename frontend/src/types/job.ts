@@ -31,3 +31,25 @@ export interface JobFormErrors {
   salaryMin?: string;
   salaryMax?: string;
 }
+
+export type ApplicationStatus = "Pending" | "Accepted" | "Rejected";
+
+export interface JobApplication {
+  id: string;
+  userId: string;
+  candidateName: string;
+  email: string;
+  skills: string[];
+  experience: string;
+  resumeUrl: string;
+  status: ApplicationStatus;
+  appliedAt: string;
+}
+
+export interface ApplicantProfile {
+  phone: string;
+  location: string;
+  skills: string[];
+  experience: string;
+  resumeUrl: string;
+}

@@ -12,12 +12,14 @@ import EmployerProfile from "./pages/employer/EmployerProfile";
 import EmployerProfileForm from "./pages/employer/EmployerProfileForm";
 import EmployerJobs from "./pages/employer/EmployerJobs";
 import EmployerJobForm from "./pages/employer/EmployerJobForm";
+import EmployerApplications from "./pages/employer/EmployerApplications";
 import JobSeekerLogin from "./pages/jobseeker/JobSeekerLogin";
 import JobSeekerSignup from "./pages/jobseeker/JobSeekerSignup";
 import JobSeekerHome from "./pages/jobseeker/JobSeekerHome";
 import JobSeekerJobs from "./pages/jobseeker/JobSeekerJobs";
 import JobSeekerJobDetails from "./pages/jobseeker/JobSeekerJobDetails";
 import JobSeekerProfile from "./pages/jobseeker/JobSeekerProfile";
+import JobSeekerApplications from "./pages/jobseeker/JobSeekerApplications";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +43,11 @@ const App = () => (
           <Route path="/employer/jobs" element={<EmployerJobs />} />
           <Route path="/employer/jobs/new" element={<EmployerJobForm />} />
           <Route path="/employer/jobs/:id/edit" element={<EmployerJobForm />} />
+          <Route
+            path="/employer/jobs/:jobId/applications"
+            element={<EmployerApplications />}
+          />
+
           {/* Job Seeker Routes */}
           <Route path="/jobseeker/login" element={<JobSeekerLogin />} />
           <Route path="/jobseeker/signup" element={<JobSeekerSignup />} />
@@ -50,6 +57,10 @@ const App = () => (
           <Route
             path="/jobseeker/jobs/:jobId"
             element={<JobSeekerJobDetails />}
+          />
+          <Route
+            path="/jobseeker/applications"
+            element={<JobSeekerApplications />}
           />
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />

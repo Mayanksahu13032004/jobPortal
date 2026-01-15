@@ -183,7 +183,6 @@ const JobSeekerHome = () => {
               variant="jobseeker-outline"
               size="sm"
               className="text-xs sm:text-sm"
-              onClick={() => navigate("/jobseeker/saved")}
             >
               <Bookmark className="w-4 h-4 sm:mr-2" />
               <span className="hidden sm:inline">Saved Jobs</span>
@@ -200,18 +199,6 @@ const JobSeekerHome = () => {
               <Send className="w-4 h-4 sm:mr-2" />
               <span className="hidden sm:inline">My Applications</span>
               <span className="sm:hidden">Applications</span>
-            </Button>
-
-            {/* Navigate to Profile */}
-            <Button
-              variant="jobseeker-outline"
-              size="sm"
-              onClick={() => navigate("/jobseeker/profile")}
-              className="text-xs sm:text-sm"
-            >
-              <User className="w-4 h-4 sm:mr-2" />
-              <span className="hidden sm:inline">My Profile</span>
-              <span className="sm:hidden">Profile</span>
             </Button>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MapPin, IndianRupee } from "lucide-react";
+import { MapPin, IndianRupee, ArrowLeft } from "lucide-react";
 import axios from "axios";
 
 interface Job {
@@ -36,7 +36,6 @@ const JobSeekerJobs = () => {
     }
   };
 
-  // Fetch all jobs initially
   useEffect(() => {
     fetchJobs();
   }, []);
@@ -56,12 +55,21 @@ const JobSeekerJobs = () => {
     setLocation("");
     setMinSalary("");
     setMaxSalary("");
-    fetchJobs(); // fetch all jobs without filters
+    fetchJobs();
   };
 
   return (
     <div className="min-h-screen bg-background">
       <main className="container mx-auto px-4 py-6">
+        {/*  Back Button */}
+        <button
+          onClick={() => navigate("/jobseeker/home")}
+          className="flex items-center gap-2 mb-4 text-sm font-medium text-primary hover:underline"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to Dashboard
+        </button>
+
         <h1 className="text-2xl sm:text-3xl font-bold mb-6">Job Listings</h1>
 
         {/* Search Filters */}
@@ -99,7 +107,7 @@ const JobSeekerJobs = () => {
           />
         </div>
 
-        {/* Search & Clear Buttons */}
+        {/* Buttons */}
         <div className="flex gap-3 mb-6">
           <button
             onClick={handleSearch}

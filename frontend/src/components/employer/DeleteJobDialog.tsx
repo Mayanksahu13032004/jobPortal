@@ -30,11 +30,15 @@ const DeleteJobDialog = ({
     <AlertDialog open={isOpen} onOpenChange={onClose}>
       <AlertDialogContent className="max-w-[90vw] sm:max-w-md">
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-base sm:text-lg">Delete Job Listing</AlertDialogTitle>
+          <AlertDialogTitle className="text-base sm:text-lg">
+            Delete Job Listing
+          </AlertDialogTitle>
           <AlertDialogDescription className="text-sm">
             Are you sure you want to delete{" "}
-            <span className="font-semibold text-foreground">"{job?.title}"</span>?
-            This action cannot be undone.
+            <span className="font-semibold text-foreground">
+              "{job?.title}"
+            </span>
+            ? This action cannot be undone.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="flex-col sm:flex-row gap-2 sm:gap-0">

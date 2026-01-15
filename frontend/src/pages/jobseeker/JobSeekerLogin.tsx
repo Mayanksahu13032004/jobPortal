@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
-import { API_BASE_URL } from "../../config.js"; 
+import { API_BASE_URL } from "../../config.js";
 
 const JobSeekerLogin = () => {
   const navigate = useNavigate();
@@ -77,7 +77,8 @@ const JobSeekerLogin = () => {
             Your Next Opportunity Awaits
           </h2>
           <p className="text-sm sm:text-base lg:text-lg opacity-90 hidden sm:block">
-            Discover thousands of jobs from top companies and take the next step in your career journey.
+            Discover thousands of jobs from top companies and take the next step
+            in your career journey.
           </p>
         </div>
       </div>
@@ -115,7 +116,9 @@ const JobSeekerLogin = () => {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
             <div className="space-y-1.5 sm:space-y-2">
-              <Label htmlFor="email" className="text-sm sm:text-base">Email</Label>
+              <Label htmlFor="email" className="text-sm sm:text-base">
+                Email
+              </Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
                 <Input
@@ -132,7 +135,9 @@ const JobSeekerLogin = () => {
             </div>
 
             <div className="space-y-1.5 sm:space-y-2">
-              <Label htmlFor="password" className="text-sm sm:text-base">Password</Label>
+              <Label htmlFor="password" className="text-sm sm:text-base">
+                Password
+              </Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
                 <Input
