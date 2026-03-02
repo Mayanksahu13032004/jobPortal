@@ -7,21 +7,33 @@ import employerProfileRoutes from './routes/employerProfile.routes';
 import jobRoutes from './routes/job.routes';
 import jobApplicationRoutes from './routes/jobApplication.routes';
 import dashboardRoutes from './routes/dashboard.routes';
+
 const app: Application = express();
 
-// CORS setup for credentials
-app.use(cors({
-  origin: 'http://localhost:8080'
-}));
+// CORS setup to allow both local dev and deployed frontend
+const allowedOrigins = [
+  'http://localhost:8080',
+  'http://localhost:5173',
+  'https://jobportal-frontend-yy0n.onrender.com',
+];
 
-
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, origin);
+      }
+      return callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true,
+  })
+);
 
 // Serve uploads folder
 app.use(
-  "/uploads",
-  express.static(path.join(process.cwd(), "uploads"))
+  '/uploads',
+  express.static(path.join(process.cwd(), 'uploads'))
 );
-
 
 app.use(express.json());
 
