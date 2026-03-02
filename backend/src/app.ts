@@ -7,7 +7,6 @@ import employerProfileRoutes from './routes/employerProfile.routes';
 import jobRoutes from './routes/job.routes';
 import jobApplicationRoutes from './routes/jobApplication.routes';
 import dashboardRoutes from './routes/dashboard.routes';
-import jobseekerProfileRouter from './routes/jobseekerProfile.routes';
 const app: Application = express();
 
 // CORS setup for credentials
@@ -32,7 +31,7 @@ app.use('/api/employer/profile', employerProfileRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/applications', jobApplicationRoutes);
 app.use('/api/dashboard', dashboardRoutes);
-app.use('/api/applicants', jobseekerProfileRouter);
+app.use('/api/applicants', jobseekerProfileRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   res.json({ message: 'Job Portal Auth API (TypeScript) is running' });
