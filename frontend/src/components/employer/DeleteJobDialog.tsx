@@ -8,7 +8,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Job } from "@/types/job";
+import type { Job } from "@/types/job";
 import { Loader2 } from "lucide-react";
 
 interface DeleteJobDialogProps {

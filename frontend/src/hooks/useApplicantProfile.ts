@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { API_BASE_URL } from "@/config";
-import { ApplicantProfile } from "@/types/job";
+import type { ApplicantProfile } from "@/types/job";
 
 export const useApplicantProfile = () => {
   const [profile, setProfile] = useState<ApplicantProfile | null>(null);

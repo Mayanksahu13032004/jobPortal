@@ -1,7 +1,7 @@
 import { MapPin, Calendar, Edit, Trash2, FileText } from "lucide-react";
 import { FaRupeeSign } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
-import { Job } from "@/types/job";
+import type { Job } from "@/types/job";
 
 interface JobCardProps {
   job: Job;

@@ -4,7 +4,7 @@ import { Building2, LogOut, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import { useJobs } from "@/hooks/useJobs";
-import { Job, JobFormData } from "@/types/job";
+import type { Job, JobFormData } from "@/types/job";
 import JobForm from "@/components/employer/JobForm";
 
 interface User {
@@ -23,7 +23,7 @@ const EmployerJobForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoadingJob, setIsLoadingJob] = useState(!!id);
 
-  const { getJob, createJob, updateJob } = useJobs(user?.id);
+  const { getJob, createJob, updateJob } = useJobs();
 
   const isEditMode = !!id;
 

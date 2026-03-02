@@ -8,7 +8,6 @@ import {
   ArrowLeft,
   Menu,
   User,
-  FileText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,7 +19,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { toast } from "@/hooks/use-toast";
 import { useJobs } from "@/hooks/useJobs";
-import { Job } from "@/types/job";
+import type { Job } from "@/types/job";
 import JobCard from "@/components/employer/JobCard";
 import DeleteJobDialog from "@/components/employer/DeleteJobDialog";
 
@@ -37,7 +36,7 @@ const EmployerJobs = () => {
   const [jobToDelete, setJobToDelete] = useState<Job | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const { jobs, isLoading, deleteJob } = useJobs(user?.id);
+  const { jobs, isFetching: isLoading, deleteJob } = useJobs();
 
   useEffect(() => {
     const storedUser = sessionStorage.getItem("user");

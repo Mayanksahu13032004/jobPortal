@@ -1,4 +1,4 @@
-import { Phone, MapPin, Briefcase, FileText, Loader2, X } from "lucide-react";
+import { Phone, MapPin, Briefcase, FileText, Loader2 } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -8,7 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { ApplicantProfile } from "@/types/job";
+import type { ApplicantProfile } from "@/types/job";
 import { API_BASE_URL } from "@/config";
 
 interface ApplicantProfileModalProps {
