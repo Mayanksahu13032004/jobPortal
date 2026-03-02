@@ -1,7 +1,20 @@
 import { useEffect, useState, useCallback } from "react";
-import { Job, JobFormData } from "@/types/job";
+import type { Job, JobFormData } from "@/types/job";
 import { apiFetch } from "@/lib/api";
 
+interface RawJob {
+  _id: string;
+  title: string;
+  description: string;
+  qualifications: string;
+  responsibilities: string;
+  location: string;
+  salaryMin: number;
+  salaryMax: number;
+  employer: string | { _id: string };
+  createdAt: string;
+  updatedAt: string;
+}
 
 export const useJobs = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -12,8 +25,7 @@ export const useJobs = () => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
-
-  const mapJob = (job: any): Job => ({
+  const mapJob = (job: RawJob): Job => ({
     id: job._id,
     title: job.title,
     description: job.description,
@@ -96,7 +108,7 @@ export const useJobs = () => {
         const updatedJob = mapJob(res.job);
 
         setJobs((prev) =>
-          prev.map((job) => (job._id === jobId ? updatedJob : job))
+          prev.map((job) => (job.id === jobId ? updatedJob : job))
         );
 
         return updatedJob;

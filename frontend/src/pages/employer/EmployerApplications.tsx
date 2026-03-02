@@ -20,8 +20,9 @@ import {
 
 import { toast } from "@/hooks/use-toast";
 import { useApplications } from "@/hooks/useApplications";
+import type { Application } from "@/hooks/useApplications";
 import { useJobs } from "@/hooks/useJobs";
-import { ApplicationStatus } from "@/types/job";
+import type { ApplicationStatus } from "@/types/job";
 import ApplicationCard from "@/components/employer/ApplicationCard";
 
 import { useApplicantProfile } from "@/hooks/useApplicantProfile";
@@ -60,7 +61,10 @@ const EmployerApplications = () => {
   //Auth
   useEffect(() => {
     const storedUser = sessionStorage.getItem("user");
-    if (!storedUser) return navigate("/employer/login");
+    if (!storedUser) {
+      navigate("/employer/login");
+      return;
+    }
 
     const parsed: UserData = JSON.parse(storedUser);
 
@@ -70,7 +74,8 @@ const EmployerApplications = () => {
         description: "Employers only",
         variant: "destructive",
       });
-      return navigate("/jobseeker/login");
+      navigate("/jobseeker/login");
+      return;
     }
 
     setUser(parsed);
@@ -107,7 +112,7 @@ const EmployerApplications = () => {
   };
 
   //VIEW PROFILE
-  const handleViewProfile = async (application: any) => {
+  const handleViewProfile = async (application: Application) => {
     //  Use the correct field from your API
     const applicantUserId =
       application?.applicant?._id ||
@@ -245,7 +250,15 @@ const EmployerApplications = () => {
 export default EmployerApplications;
 
 /*  HELPERS */
-const Stat = ({ label, value, color = "" }: any) => (
+const Stat = ({
+  label,
+  value,
+  color = "",
+}: {
+  label: string;
+  value: number;
+  color?: string;
+}) => (
   <div className="p-4 border rounded-lg text-center">
     <p className={`text-2xl font-bold ${color}`}>{value}</p>
     <p className="text-sm text-muted-foreground">{label}</p>

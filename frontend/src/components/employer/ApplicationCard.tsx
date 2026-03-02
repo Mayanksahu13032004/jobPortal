@@ -1,10 +1,11 @@
 import { Calendar, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { JobApplication, ApplicationStatus } from "@/types/job";
+import type { ApplicationStatus } from "@/types/job";
+import type { Application } from "@/hooks/useApplications";
 
 interface ApplicationCardProps {
-  application: JobApplication;
+  application: Application;
   onStatusChange: (id: string, status: ApplicationStatus) => void;
   isUpdating?: boolean;
   onViewProfile: () => void;
@@ -38,25 +39,27 @@ const ApplicationCard = ({
       <div className="flex justify-between">
         <div>
           <h3 className="font-semibold text-lg">
-            {application.applicant?.name || application.user?.name || "Unknown"}
+            {application.applicant?.name ||
+              application.user?.name ||
+              application.candidateName ||
+              "Unknown"}
           </h3>
           <p className="text-sm text-muted-foreground">
             {application.applicant?.email ||
               application.user?.email ||
+              application.email ||
               "Unknown"}
           </p>
         </div>
 
         {/* Status Badge */}
-        <Badge
-          variant={
-            application.status === "Accepted"
-              ? "success"
-              : application.status === "Rejected"
-              ? "destructive"
-              : "secondary"
-          }
-        >
+        <Badge variant={
+          application.status === "Accepted"
+            ? "default"
+            : application.status === "Rejected"
+            ? "destructive"
+            : "secondary"
+        }>
           {statusText}
         </Badge>
       </div>

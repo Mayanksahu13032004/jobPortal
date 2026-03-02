@@ -1,9 +1,40 @@
 import { useCallback, useEffect, useState } from "react";
 import { apiFetch } from "@/lib/api";
-import { ApplicationStatus, JobApplication } from "@/types/job";
+import type { ApplicationStatus } from "@/types/job";
 
-export interface Application extends JobApplication {
-  applicant?: { name?: string; email?: string };
+// Shape of the raw application returned by the API.
+interface RawApplication {
+  _id?: string;
+  job?: string | { _id?: string };
+  applicant?: { _id?: string; name?: string; email?: string };
+  user?: { _id?: string; name?: string; email?: string };
+  resume?: string;
+  skills?: string[];
+  experience?: string;
+  status?: string;
+  createdAt?: string;
+  userId?: string;
+}
+
+// Normalized application shape used in the employer UI.
+export interface Application {
+  id: string;
+  status: ApplicationStatus;
+  appliedAt: string;
+  skills: string[];
+  experience: string;
+
+  jobId?: string;
+  _id?: string;
+  createdAt?: string;
+
+  applicant?: { _id?: string; name?: string; email?: string };
+  user?: { _id?: string; name?: string; email?: string };
+  resumeUrl?: string;
+
+  userId?: string;
+  candidateName?: string;
+  email?: string;
 }
 
 const mapStatus = (status: string): ApplicationStatus => {
@@ -24,16 +55,52 @@ export const useApplications = (jobId: string | null) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
-  const mapApplication = (app: any): Application => ({
-    id: app._id,
-    jobId: typeof app.job === "string" ? app.job : app.job?._id,
-    applicant: app.applicant ?? {},
-    resumeUrl: app.resume || undefined,
-    skills: app.skills ?? [],
-    experience: app.experience ?? "",
-    status: mapStatus(app.status),
-    appliedAt: app.createdAt,
-  });
+  const mapApplication = (app: RawApplication): Application => {
+    const id = app._id ?? "";
+    const createdAt = app.createdAt ?? "";
+    const status = mapStatus(app.status ?? "applied");
+
+    const jobId =
+      typeof app.job === "string"
+        ? app.job
+        : app.job?._id;
+
+    const applicant = app.applicant ?? undefined;
+    const user = app.user ?? undefined;
+
+    const candidateName =
+      applicant?.name ??
+      user?.name ??
+      undefined;
+
+    const email =
+      applicant?.email ??
+      user?.email ??
+      undefined;
+
+    const userId =
+      app.userId ??
+      applicant?._id ??
+      user?._id ??
+      undefined;
+
+    return {
+      id,
+      _id: app._id,
+      jobId,
+      applicant,
+      user,
+      resumeUrl: app.resume || undefined,
+      skills: app.skills ?? [],
+      experience: app.experience ?? "",
+      status,
+      appliedAt: createdAt,
+      createdAt,
+      userId,
+      candidateName,
+      email,
+    };
+  };
 
 
   const fetchApplications = useCallback(async () => {
@@ -46,9 +113,7 @@ export const useApplications = (jobId: string | null) => {
     setIsLoading(true);
     try {
 
-      const data = await apiFetch(`/applications/applicants/${jobId}`)
-
-
+      const data = await apiFetch(`/applications/applicants/${jobId}`);
       const apps = Array.isArray(data.applications) ? data.applications : data;
 
       setApplications(Array.isArray(apps) ? apps.map(mapApplication) : []);

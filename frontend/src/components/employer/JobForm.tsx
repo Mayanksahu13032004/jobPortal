@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Job, JobFormData, JobFormErrors } from "@/types/job";
+import type { Job, JobFormData, JobFormErrors } from "@/types/job";
 
 interface JobFormProps {
   job?: Job | null;
@@ -108,17 +108,7 @@ const JobForm = ({ job, isLoading, onSubmit, onCancel }: JobFormProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      onSubmit({
-        ...formData,
-        qualifications: formData.qualifications
-          .split("\n")
-          .map((q) => q.trim())
-          .filter(Boolean),
-        responsibilities: formData.responsibilities
-          .split("\n")
-          .map((r) => r.trim())
-          .filter(Boolean),
-      });
+      onSubmit(formData);
     }
   };
 
