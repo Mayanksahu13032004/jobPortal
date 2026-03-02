@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { IndianRupee, MapPin, Clock, CheckCircle, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
+import { API_BASE_URL } from "@/config";
 
 type ApplicationStatus = "applied" | "reviewed" | "rejected" | "accepted";
 
@@ -32,7 +33,7 @@ const JobSeekerApplications = () => {
 
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/applications/my-applications",
+          `${API_BASE_URL}/applications/my-applications`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

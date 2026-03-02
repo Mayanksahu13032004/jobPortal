@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { MapPin, Briefcase, IndianRupee, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
+import { API_BASE_URL } from "@/config";
 
 interface Job {
   _id: string;
@@ -47,16 +48,13 @@ const JobSeekerJobDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const jobReq = axios.get(`http://localhost:5000/api/jobs/${jobId}`);
+        const jobReq = axios.get(`${API_BASE_URL}/jobs/${jobId}`);
 
-        const appReq = axios.get(
-          `http://localhost:5000/api/applications/my-applications`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const appReq = axios.get(`${API_BASE_URL}/applications/my-applications`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         const [jobRes, appRes] = await Promise.all([jobReq, appReq]);
 
@@ -86,7 +84,7 @@ const JobSeekerJobDetails = () => {
       setApplying(true);
 
       await axios.post(
-        `http://localhost:5000/api/applications/apply/${job._id}`,
+        `${API_BASE_URL}/applications/apply/${job._id}`,
         {},
         {
           headers: {

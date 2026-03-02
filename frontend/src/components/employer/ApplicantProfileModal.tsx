@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ApplicantProfile } from "@/types/job";
+import { API_BASE_URL } from "@/config";
 
 interface ApplicantProfileModalProps {
   isOpen: boolean;
@@ -83,10 +84,10 @@ const ApplicantProfileModal = ({
                 <Button
                   onClick={() =>
                     window.open(
-                      `http://localhost:5000/${profile.resumeUrl.replace(
-                        /\\/g,
-                        "/"
-                      )}`,
+                      `${API_BASE_URL.replace(
+                        /\/api$/,
+                        ""
+                      )}/${profile.resumeUrl.replace(/\\/g, "/")}`,
                       "_blank"
                     )
                   }

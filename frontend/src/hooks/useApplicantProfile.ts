@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "@/config";
 import { ApplicantProfile } from "@/types/job";
 
 export const useApplicantProfile = () => {
@@ -14,14 +15,11 @@ export const useApplicantProfile = () => {
     try {
       const token = sessionStorage.getItem("token");
 
-      const res = await axios.get(
-        `http://localhost:5000/api/applicants/${userId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await axios.get(`${API_BASE_URL}/applicants/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setProfile(res.data);
       return res.data;

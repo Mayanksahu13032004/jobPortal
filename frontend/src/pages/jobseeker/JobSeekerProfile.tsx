@@ -15,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import { useRef } from "react";
+import { API_BASE_URL } from "@/config";
 
 interface UserData {
   name: string;
@@ -74,7 +75,7 @@ const JobSeekerProfile = () => {
 
     setUser(userData);
 
-    fetch("http://localhost:5000/api/jobseeker/profile/me", {
+    fetch(`${API_BASE_URL}/jobseeker/profile/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -167,7 +168,7 @@ const JobSeekerProfile = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/jobseeker/profile", {
+      const res = await fetch(`${API_BASE_URL}/jobseeker/profile`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
